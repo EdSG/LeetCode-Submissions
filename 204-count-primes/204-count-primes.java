@@ -5,19 +5,24 @@ class Solution {
         if (n >= 2) {
             byte[] primes = new byte[n + 1];
             
-            for (int x = 2 ; x < n ; x++) {
+            final int SQRT_N = (int) Math.sqrt(n);
+            for (int x = 2 ; x <= SQRT_N ; x++) {
                 if (primes[x] == 0) {
-                    primes[x] = 1;
-                    primeCount++;
-                    
-                    int m = 2;
-                    while (m * x <= n) {
-                        primes[m * x] = -1;
-                        m++;
+                    int m = x * x;
+                    while (m < n) {
+                        primes[m] = -1;
+                        m += x;
                     }
                 }
             }
+            
+            for(int i = 2 ; i < n ; i++) {
+                if (primes[i] == 0) {
+                    ++primeCount;
+                }
+            }
         }
+        
         
         return primeCount;
     }
